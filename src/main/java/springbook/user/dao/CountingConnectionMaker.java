@@ -1,0 +1,32 @@
+package springbook.user.dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+/**
+ * toby Vol.1
+ * 클래스명 : CountingConnectionMaker.java
+ * 작성자 : elcue
+ * 작성일 : 2017. 2. 20.
+ * 클래스 소개 : 연결 횟수 카운팅 기능이 있는 클래스
+ */
+
+public class CountingConnectionMaker implements ConnectionMaker{
+	int counter = 0;
+	private ConnectionMaker realConnectionMaker;
+	
+	public CountingConnectionMaker(ConnectionMaker realConnectionMaker){
+		this.realConnectionMaker = realConnectionMaker;
+	}
+	
+	public Connection makeConnection() throws ClassNotFoundException, SQLException{
+		this.counter++;
+		return realConnectionMaker.makeConnection();
+	}
+	
+	public int getCounter(){
+		return this.counter;
+	}
+	
+
+}
